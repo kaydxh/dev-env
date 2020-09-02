@@ -1,0 +1,25 @@
+# youtu_deps配置文件
+# yaml格式配置
+
+#配置依赖下载的目录，建议使用空间较大的硬盘路径
+root_path: /Users/dingxiaohua/workspace/youtu_deps     
+
+#是否自动清理当前已无任何项目依赖的旧的依赖库。对于需要频繁checkout不同版本的同事，且磁盘空间充足的情况下，保留多版本缓存可以提高下载速度；
+clean_unused: false
+#生成项目依赖版本信息的markdown文件名                       
+version_markdown_filename: dep_version.md 
+
+
+# 目前依赖库分为两类：
+# 1）基础的开源依赖库，如opencv/ffmpeg等. 这些依赖库的发布版本在youtu_sdk group下面；
+# 2) 优图SDK。 这些依赖库的发布版本在yt-release group下面。
+# 基础库可以使用脚本中的公共账号来拉取。（无需额外配置）
+# 但是优图SDK的权限是对应到具体project和开发同学的，每个开发同学必须使用自己的git账号在得到git dev权限后拉取。
+#为了使用自己的git账号，必须在依赖库配置文件~/.youtu_deps/default_config.yaml中配置鉴权模式。
+#鉴权模式，默认值为0. 
+# 取值：0-默认用户名密码的模式；1-git ssh private key验证方式； 2-terminal输入账号密码方式；
+auth_mode: 0
+# 用于拉取依赖库的git仓库账号
+git_username: kayxhding 
+# 用于拉取依赖库的git仓库密码    
+git_password: kaydjh457534%
