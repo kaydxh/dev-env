@@ -5,4 +5,4 @@
 docker build -t kayxhding/centos7 .
 
 #build container
-docker run --privileged --security-opt seccomp=unconfined  -it --name dev-centos7  -v ~/workspace:/Users/dingxiaohua/workspace -v ~/Enviroment/gopath:/Users/dingxiaohua/workspace/gopath -v ~/Enviroment/lib:/usr/local -v ~/Downloads:/Users/dingxiaohua/Downloads kayxhding/centos7 /bin/bash
+docker run --privileged --security-opt seccomp=unconfined -net=host -it --name dev-centos7  -v ~/workspace:/Users/dingxiaohua/workspace -v ~/Enviroment/gopath:/Users/dingxiaohua/workspace/gopath -v ~/Enviroment/lib:/usr/local -v ~/Downloads:/Users/dingxiaohua/Downloads kayxhding/centos7 /bin/bash
