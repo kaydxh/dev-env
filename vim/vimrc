@@ -50,6 +50,7 @@ Plugin 'nsf/gocode', { 'for': ['go', 'golang'] }
 Plugin 'Blackrush/vim-gocode'
 Plugin 'https://github.com/jstemmer/gotags.git'
 Plugin 'mileszs/ack.vim'
+Plugin 'preservim/nerdtree'
 
 Plugin 'vim-airline/vim-airline'
 Plugin 'Chiel92/vim-autoformat'
