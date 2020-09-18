@@ -31,8 +31,8 @@ set fileencodings=ucs-bom,utf-8,chinese
 set ambiwidth=double
 set wrap "自动换行
 set ignorecase "搜索忽略大小写
-set path=/Users/dingxiaohua/Enviroment/centos_include
-set path+=/Users/dingxiaohua/Enviroment/lib/include
+set path=/Users/kayxhding/Enviroment/centos_include
+set path+=/Users/kayxhding/Enviroment/lib/include
 set path+=/usr/local/go/src
 
 
@@ -45,7 +45,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'majutsushi/tagbar'
 Plugin 'rizzatti/dash.vim'
-Plugin 'vim-clang-format'
+Plugin 'rhysd/vim-clang-format'
 Plugin 'nsf/gocode', { 'for': ['go', 'golang'] }
 Plugin 'Blackrush/vim-gocode'
 Plugin 'https://github.com/jstemmer/gotags.git'
@@ -111,7 +111,9 @@ let g:ycm_confirm_extra_conf=0
 " *************** set for golang *******************
 "自动补全
 "imap <F6> <C-x><C-o>
-let g:go_fmt_command = "goimports" " 格式化将默认的 gofmt 替换"
+"let g:go_fmt_command = "goimports" " 格式化将默认的 gofmt 替换"
+let g:go_fmt_command = "gopls"
+"let g:go_fmt_command = "gofmt" " 格式化将默认的 gofmt 替换"
 let g:go_fmt_autosave = 1
 let g:go_autodetect_gopath = 1
 let g:go_list_type = "quickfix"
@@ -128,6 +130,7 @@ let g:go_highlight_generate_tags = 1
 let g:go_def_mapping_enabled=0
 "let g:godef_split=2
 let g:godef_split=0
+let g:go_null_module_warning = 0
 
 "let g:jedi#auto_initialization = 0
 "let g:jedi#goto_definitions_command = "gd"
@@ -177,6 +180,7 @@ map <C-]> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 call vundle#end()
 "filetype plugin off
+filetype plugin on
 filetype indent on
 "filetype plugin indent on
 
