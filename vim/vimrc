@@ -33,7 +33,9 @@ set fileencodings=ucs-bom,utf-8,chinese
 set ambiwidth=double
 set wrap "自动换行
 set ignorecase "搜索忽略大小写
-set path=/Users/kayxhding/Enviroment/centos_include
+set path=/Users/kayxhding/Enviroment/centos_include/include
+set path+=/Users/kayxhding/Enviroment/centos_include/include/c++/4.4.4
+set path+=/Library/Developer/CommandLineTools/usr/include/c++/v1
 set path+=/Users/kayxhding/Enviroment/lib/include
 set path+=/usr/local/go/src
 
@@ -53,9 +55,20 @@ Plugin 'Blackrush/vim-gocode'
 Plugin 'https://github.com/jstemmer/gotags.git'
 Plugin 'mileszs/ack.vim'
 Plugin 'preservim/nerdtree'
+Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plugin 'junegunn/fzf.vim'
+Plugin 'mbbill/undotree'
+Plugin 'tpope/vim-eunuch'
+Plugin 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plugin 'uguu-org/vim-matrix-screensaver'
+Plugin 'tpope/vim-fugitive'
+Plugin 'preservim/nerdcommenter'
+Plugin 'mg979/vim-visual-multi', {'branch': 'master'}
 
 Plugin 'vim-airline/vim-airline'
 Plugin 'Chiel92/vim-autoformat'
+
+let g:mkdp_auto_start = 1
 
 " 显示设置
 " support gnu syntaxt
@@ -106,7 +119,8 @@ nmap <F4> :NERDTreeToggle<CR>
 nmap <leader>dr :silent !open dash://ruby:<cword><cr>
 
 let mapleader=","
-let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+"let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf=0
 
 
@@ -179,6 +193,8 @@ autocmd FileType vim,tex let b:autoformat_autoindent=0
 map <F2> :YcmCompleter GoToDefinition<CR>
 map <F3> :YcmCompleter GoToDeclaration<CR>
 map <C-]> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+nnoremap <F5> :UndotreeToggle<CR>
 
 call vundle#end()
 "filetype plugin off
