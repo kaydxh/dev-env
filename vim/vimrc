@@ -1,286 +1,313 @@
-set nocompatible
-set undofile
-set undodir=~/.vim/undodir
-filetype off
+" vim:set expandtab shiftwidth=2 tabstop=8 textwidth=72:
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-syntax on
-set history=200
-"colorscheme molokai
-" 输入设置
-set backspace=2
-set tabstop=2
+set tabstop=4 
+set expandtab 
 set shiftwidth=2
-set smarttab
-set expandtab
+set textwidth=72
 
-" 缩进设置
-set autoindent
-set smartindent
-set cindent
-set cinoptions=:0,g0,t0,(0,Ws,m1
-set number
-set hls
-"set backspace=indent,eol,start
-set hlsearch
+if exists('$VIM_TERMINAL')
+  echoerr 'Do not run Vim inside a Vim terminal'
+  quit
+endif
 
-"基本设置
-set encoding=utf-8
-set fileencoding=utf-8
-set fileencodings=ucs-bom,utf-8,chinese
-set ambiwidth=double
-set wrap "自动换行
+if has('autocmd')
+  " 为了可以重新执行 vimrc，开头先清除当前组的自动命令
+  au!
+endif
+
+if has('gui_running')
+  " 下面两行仅为占位使用；请填入你自己的字体
+  set guifont=
+  set guifontwide=
+
+  " 不延迟加载菜单（需要放在下面的 source 语句之前）
+  let do_syntax_sel_menu = 1
+  let do_no_lazyload_menus = 1
+endif
+
+set enc=utf-8
+source $VIMRUNTIME/vimrc_example.vim
+
+" 启用 man 插件
+source $VIMRUNTIME/ftplugin/man.vim
+
+set fileencodings=ucs-bom,utf-8,gb18030,latin1
+set formatoptions+=mM
+set keywordprg=:Man
+set scrolloff=1
+set spelllang+=cjk
+"set tags=./tags;,tags,/usr/local/etc/systags
+set nobackup
 set ignorecase "搜索忽略大小写
+set number
+
+"set path
 set path=/Users/kayxhding/Enviroment/centos_include/include
 set path+=/Users/kayxhding/Enviroment/centos_include/include/c++/4.4.4
 set path+=/Library/Developer/CommandLineTools/usr/include/c++/v1
 set path+=/Users/kayxhding/Enviroment/lib/include
 set path+=/usr/local/go/src
 
+if has('persistent_undo')
+  set undofile
+  set undodir=~/.vim/undodir
+  if !isdirectory(&undodir)
+    call mkdir(&undodir, 'p', 0700)
+  endif
+endif
+
+if has('mouse')
+  if has('gui_running') || (&term =~ 'xterm' && !has('mac'))
+    "set mouse=a
+  else
+    "set mouse=nvi
+  endif
+endif
+
+set clipboard=unnamed
+
+if !has('gui_running')
+  " 设置文本菜单
+  if has('wildmenu')
+    set wildmenu
+    set cpoptions-=<
+    set wildcharm=<C-Z>
+    nnoremap <F10>      :emenu <C-Z>
+    inoremap <F10> <C-O>:emenu <C-Z>
+  endif
+
+  " 识别终端的真彩支持
+  if has('termguicolors') &&
+        \($COLORTERM == 'truecolor' || $COLORTERM == '24bit')
+    set termguicolors
+  endif
+endif
+
+ "if exists('g:loaded_minpac')
+   "" Minpac is loaded.
+   "call minpac#init()
+   "call minpac#add('k-takata/minpac', {'type': 'opt'})
+ "
+   "" Other plugins
+   "call minpac#add('adah1972/vim-copy-as-rtf')
+   "call minpac#add('airblade/vim-gitgutter')
+   "call minpac#add('junegunn/fzf', {'do': {-> fzf#install()}})
+   "call minpac#add('junegunn/fzf.vim')
+   "call minpac#add('majutsushi/tagbar')
+   "call minpac#add('mbbill/undotree')
+   "call minpac#add('mg979/vim-visual-multi')
+   "call minpac#add('preservim/nerdcommenter')
+   "call minpac#add('preservim/nerdtree')
+   "call minpac#add('skywind3000/asyncrun.vim')
+   "call minpac#add('tpope/vim-eunuch')
+   "call minpac#add('tpope/vim-fugitive')
+   "call minpac#add('tpope/vim-repeat')
+   "call minpac#add('tpope/vim-surround')
+   "call minpac#add('vim-airline/vim-airline')
+   "call minpac#add('vim-scripts/SyntaxAttr.vim')
+   "call minpac#add('yegappan/mru')
+   "call minpac#add('fatih/vim-go')
+   "call minpac#add('dgryski/vim-godef')
+   "call minpac#add('rhysd/vim-clang-format')
+   "call minpac#add('mileszs/ack.vim')
+   "call minpac#add('nsf/gocode', {'rtp': 'vim/'})
+   "call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
+   "call minpac#add('uguu-org/vim-matrix-screensaver')
+ "
+   "call minpac#add('vim/killersheep')
+ "
+ "endif
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
-Plugin 'fatih/vim-go'
-Plugin 'dgryski/vim-godef'
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'suan/vim-instant-markdown'
-Plugin 'majutsushi/tagbar'
-Plugin 'rizzatti/dash.vim'
-Plugin 'rhysd/vim-clang-format'
-Plugin 'nsf/gocode', { 'for': ['go', 'golang'] }
-Plugin 'Blackrush/vim-gocode'
-Plugin 'https://github.com/jstemmer/gotags.git'
-Plugin 'mileszs/ack.vim'
-Plugin 'preservim/nerdtree'
+Plugin 'adah1972/vim-copy-as-rtf'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plugin 'junegunn/fzf.vim'
+Plugin 'majutsushi/tagbar'
 Plugin 'mbbill/undotree'
+Plugin 'mg979/vim-visual-multi'
+Plugin 'preservim/nerdcommenter'
+Plugin 'preservim/nerdtree'
+Plugin 'skywind3000/asyncrun.vim'
 Plugin 'tpope/vim-eunuch'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-scripts/SyntaxAttr.vim'
+Plugin 'yegappan/mru'
+Plugin 'fatih/vim-go'
+Plugin 'dgryski/vim-godef'
+Plugin 'rhysd/vim-clang-format'
+Plugin 'mileszs/ack.vim'
+Plugin 'nsf/gocode', { 'for': ['go', 'golang'] }
 Plugin 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plugin 'uguu-org/vim-matrix-screensaver'
-Plugin 'tpope/vim-fugitive'
-Plugin 'preservim/nerdcommenter'
-Plugin 'mg979/vim-visual-multi', {'branch': 'master'}
 
-Plugin 'vim-airline/vim-airline'
-Plugin 'Chiel92/vim-autoformat'
+Plugin 'vim/killersheep'
 
-let g:mkdp_auto_start = 1
+if has('eval')
+  " Minpac commands
+  command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
+  command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
+  command! PackStatus packadd minpac | source $MYVIMRC | call minpac#status()
 
-" 显示设置
-" support gnu syntaxt
-let c_gnu = 1
+  " 和 asyncrun 一起用的异步 make 命令
+  command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+endif
 
-" show error for mixed tab-space
-let c_space_errors = 1
-"let c_no_tab_space_error = 1
+if v:version >= 800
+  packadd! editexisting
+endif
 
-" don't show gcc statement expression ({x, y;}) as error
-let c_no_curly_error = 1
+" 修改光标上下键一次移动一个屏幕行
+nnoremap <Up>        gk
+inoremap <Up>   <C-O>gk
+nnoremap <Down>      gj
+inoremap <Down> <C-O>gj
 
-let g:tagbar_width=30
-let g:tagbar_right=1
-let g:godef_same_file_in_same_window=1
-"let g:clang_format#auto_format_on_insert_leave=1
-let g:clang_format#auto_format=1
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
+" 切换窗口的键映射
+nnoremap <C-Tab>   <C-W>w
+inoremap <C-Tab>   <C-O><C-W>w
+nnoremap <C-S-Tab> <C-W>W
+inoremap <C-S-Tab> <C-O><C-W>W
 
-nmap <silent> <F7> :TagbarToggle<CR>
+" 检查光标下字符的语法属性的键映射
+nnoremap <Leader>a :call SyntaxAttr()<CR>
+
+" 替换光标下单词的键映射
+nnoremap <Leader>v viw"0p
+vnoremap <Leader>v    "0p
+
+" 停止搜索高亮的键映射
+nnoremap <silent> <F2>      :nohlsearch<CR>
+inoremap <silent> <F2> <C-O>:nohlsearch<CR>
+
+" 映射按键来快速启停构建
+nnoremap <F5>  :if g:asyncrun_status != 'running'<bar>
+                 \if &modifiable<bar>
+                   \update<bar>
+                 \endif<bar>
+                 \exec 'Make'<bar>
+               \else<bar>
+                 \AsyncStop<bar>
+               \endif<CR>
+
+" 开关撤销树的键映射
+nnoremap <F6>      :UndotreeToggle<CR>
+inoremap <F6> <C-O>:UndotreeToggle<CR>
+
+" 开关 Tagbar 插件的键映射
+nnoremap <F9>      :TagbarToggle<CR>
+inoremap <F9> <C-O>:TagbarToggle<CR>
+
 nmap <F4> :NERDTreeToggle<CR>
-nmap <leader>dr :silent !open dash://ruby:<cword><cr>
 
-let mapleader=","
-"let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf=0
+" 用于 quickfix、标签和文件跳转的键映射
+if !has('mac')
+nnoremap <F11>   :cn<CR>
+nnoremap <F12>   :cp<CR>
+else
+nnoremap <D-F11> :cn<CR>
+nnoremap <D-F12> :cp<CR>
+endif
+nnoremap <M-F11> :copen<CR>
+nnoremap <M-F12> :cclose<CR>
+nnoremap <C-F11> :tn<CR>
+nnoremap <C-F12> :tp<CR>
+nnoremap <S-F11> :n<CR>
+nnoremap <S-F12> :prev<CR>
 
+if has('unix') && !has('gui_running')
+  " Unix 终端下使用两下 Esc 来离开终端作业模式
+  tnoremap <Esc><Esc> <C-\><C-N>
+else
+  " 其他环境则使用 Esc 来离开终端作业模式
+  tnoremap <Esc>      <C-\><C-N>
+  tnoremap <C-V><Esc> <Esc>
+endif
 
-" *************** set for golang *******************
-"自动补全
-"imap <F6> <C-x><C-o>
-"let g:go_fmt_command = "goimports" " 格式化将默认的 gofmt 替换"
-let g:go_fmt_command = "gopls"
-"let g:go_fmt_command = "gofmt" " 格式化将默认的 gofmt 替换"
-let g:go_fmt_autosave = 1
-let g:go_autodetect_gopath = 1
-let g:go_list_type = "quickfix"
+if has('autocmd')
+  function! GnuIndent()
+    setlocal cinoptions=>4,n-2,{2,^-2,:2,=2,g0,h2,p5,t0,+2,(0,u0,w1,m1
+    setlocal shiftwidth=2
+    setlocal tabstop=8
+  endfunction
 
-let g:go_version_warning = 1
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_generate_tags = 1
-let g:go_def_mapping_enabled=0
-"let g:godef_split=2
-let g:godef_split=0
-let g:go_null_module_warning = 0
+  " 异步运行命令时打开 quickfix 窗口，高度为 10 行
+  let g:asyncrun_open = 10
 
-"let g:jedi#auto_initialization = 0
-"let g:jedi#goto_definitions_command = "gd"
+  " 用于 Airline 的设定
+  let g:airline_powerline_fonts = 1  " 如没有安装合适的字体，则应置成 0
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#buffer_nr_show = 1
+  let g:airline#extensions#tabline#overflow_marker = '…'
+  let g:airline#extensions#tabline#show_tab_nr = 0
 
+  " 非图形环境不使用 NERD Commenter 菜单
+  if !has('gui_running')
+    let g:NERDMenuMode = 0
+  endif
 
-"autocomplpop 设置
-let g:AutoComplPop_IgnoreCaseOption=1
-let g:acp_behaviorKeywordCommand="\<C-n>"
+  let g:clang_format#auto_format=1
 
-" you complete me
-let g:ycm_auto_hover = ''
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:syntastic_ignore_files                  = [".*\.py$"]
-let g:syntastic_cpp_compiler = 'g++'
-let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++'
-let g:ycm_collect_identifiers_from_tag_files  = 1
-let g:ycm_error_symbol                        = '>>'
-let g:ycm_warning_symbol                      = '>*'
-let g:ycm_server_keep_logfiles                = 1
-let g:ycm_server_log_level                    = 'debug'
-let g:ycm_cache_omnifunc                      = 1
-"let g:ycm_server_python_interpreter           = '/usr/bin/python'
-"let g:ycm_global_ycm_extra_conf               = '~/.vim/ycm_extra_conf.py'
-let g:ycm_key_invoke_completion               = '<C-\>'
-let g:ycm_seed_identifiers_with_syntax        = 1                  " 语法关键字补全"
-let g:ycm_min_num_of_chars_for_completion=1
-let g:ycm_semantic_triggers                   = {
+  let g:go_fmt_command = "golines"
+  let g:go_fmt_options = {
+      \ 'golines': '-m 80',
+      \ }
+
+  let g:syntastic_cpp_compiler = 'g++'
+  let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++'
+
+  " 用于 YouCompleteMe 的设定
+  let g:ycm_auto_hover = ''
+  let g:ycm_complete_in_comments = 1
+  let g:ycm_autoclose_preview_window_after_insertion = 1
+  let g:ycm_filetype_whitelist = {
+        \ 'c': 1,
+        \ 'cpp': 1,
+        \ 'java': 1,
+        \ 'python': 1,
+        \ 'go': 1,
+        \ 'vim': 1,
+        \ 'sh': 1,
+        \ 'zsh': 1,
+        \ }
+  let g:ycm_goto_buffer_command = 'split-or-existing-window'
+  let g:ycm_seed_identifiers_with_syntax        = 1                  " 语法关键字补全"
+  let g:ycm_min_num_of_chars_for_completion=1
+  let g:ycm_key_invoke_completion = '<C-Z>'
+  let g:ycm_use_clangd = 1
+"  let g:ycm_clangd_binary_path = "/Users/kayxhding/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/clangd/output/bin"
+
+  let g:ycm_autoclose_preview_window_after_insertion = 1
+  let g:ycm_warning_symbol                      = '>*'
+  let g:ycm_server_keep_logfiles                = 1
+  let g:ycm_server_log_level                    = 'debug'
+  let g:ycm_cache_omnifunc                      = 1
+  let g:ycm_semantic_triggers                   = {
                         \'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
                         \'cs,lua,javascript,html,css': ['re!\w{2}']
                         \}
+  nnoremap <Leader>fi :YcmCompleter FixIt<CR>
+  nnoremap <Leader>gt :YcmCompleter GoTo<CR>
+ " nnoremap <Leader>gd :YcmCompleter GoToDefinition<CR>
+  nnoremap <Leader>gh :YcmCompleter GoToDeclaration<CR>
+  nnoremap <Leader>gr :YcmCompleter GoToReferences<CR>
+  map <C-]> :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-let g:autoformat_autoindent = 0
-let g:autoformat_retab = 0
-let g:autoformat_remove_trailing_spaces = 0
+ " filetype plugin on
+ " filetype indent on
 
+  au FileType c,cpp,objc  setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=4 cinoptions=:0,g0,(0,w1
+  au FileType json        setlocal expandtab shiftwidth=2 softtabstop=2
+  au FileType vim         setlocal expandtab shiftwidth=2 softtabstop=2
 
-let g:formatdef_my_cpp = '"astyle --style=google"'
-let g:autoformat_autoindent = 0
-let g:autoformat_retab = 0
-let g:autoformat_remove_trailing_spaces = 0
-autocmd FileType vim,tex let b:autoformat_autoindent=0
-"let g:formatters_cpp = ['my_cpp']
+  au FileType help        nnoremap <buffer> q <C-W>c
 
-map <F2> :YcmCompleter GoToDefinition<CR>
-map <F3> :YcmCompleter GoToDeclaration<CR>
-map <C-]> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+  au BufRead /usr/include/*  call GnuIndent()
+endif
 
-nnoremap <F5> :UndotreeToggle<CR>
-
-call vundle#end()
-"filetype plugin off
-filetype plugin on
-filetype indent on
-"filetype plugin indent on
-
-
-autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()"
-""定义函数SetTitle，自动插入文件头
-func SetTitle()
-    "如果文件类型为.sh文件
-    if &filetype == 'sh'
-        call setline(1, "# Created by kayxhding on ".strftime("%Y-%m-%d %H:%M:%S"))
-        call append(line("."), "#!/usr/bin/env bash")
-    else
-        call setline(1, "//")
-        call append(line("."),   "// Created by kayxhding on ".strftime("%Y-%m-%d %H:%M:%S"))
-        call append(line(".")+1, "//")
-        call append(line(".")+2, "")
-    endif
-endfunc
-
-" 缩进格式修正：命名空间不增加缩进，以及修复默认情况下模板缩进错误
-function! CppNoNamespaceAndTemplateIndent()
-    let l:cline_num = line('.')
-    let l:cline = getline(l:cline_num)
-    let l:pline_num = prevnonblank(l:cline_num - 1)
-    let l:pline = getline(l:pline_num)
-    while l:pline =~# '\(^\s*{\s*\|^\s*//\|^\s*/\*\|\*/\s*$\)'
-        let l:pline_num = prevnonblank(l:pline_num - 1)
-        let l:pline = getline(l:pline_num)
-    endwhile
-    let l:retv = cindent('.')
-    let l:pindent = indent(l:pline_num)
-    if l:pline =~# '^\s*template\s*<\s*$'
-        let l:retv = l:pindent + &shiftwidth
-    elseif l:pline =~# '^\s*template\s*<.*>\s*$'
-        let l:retv = l:pindent
-    elseif l:pline =~# '\s*typename\s*.*,\s*$'
-        let l:retv = l:pindent
-    elseif l:pline =~# '\s*typename\s*.*>\s*$'
-        let l:retv = l:pindent - &shiftwidth
-    elseif l:cline =~# '^\s*>\s*$'
-        let l:retv = l:pindent - &shiftwidth
-    elseif l:pline =~# '^\s\+: \S.*' " C++ initialize list
-        let l:retv = l:pindent + 2
-    elseif l:pline =~# '^\s*namespace.*'
-        let l:retv = 0
-    endif
-    return l:retv
-endfunction
-autocmd FileType cpp nested setlocal indentexpr=CppNoNamespaceAndTemplateIndent()
-
-" 保存时自动删除行尾多余的空白字符
-function! RemoveTrailingSpace()
-    if $VIM_HATE_SPACE_ERRORS != '0'
-        normal m`
-        silent! :%s/\s\+$//e
-        normal ``
-    endif
-endfunction
-autocmd BufWritePre * nested call RemoveTrailingSpace()
-
-" 修复不一致的换行符，统一采用 Unix 换行符(\n)
-function! FixInconsistFileFormat()
-    if &fileformat == 'unix'
-        silent! :%s/\r$//e
-    endif
-endfunction
-autocmd BufWritePre * nested call FixInconsistFileFormat()
-
-" 增加'CppLint'自定义命令，在冒号模式下输入:CppLint即可检查当前文件，也支持带文件名参数。
-" 检查结果支持 vim 的  QuickFix 模式，在不离开 vim 的情况下跳转到出错行方便，修正。
-function! CppLint(...)
-    let l:args = join(a:000)
-    if l:args == ""
-        let l:args = expand("%")
-        if l:args == ""
-            let l:args = '*'
-        endif
-    endif
-    let l:old_makeprg = &makeprg
-    setlocal makeprg=cpplint.py
-    execute "make " . l:args
-    let &makeprg=old_makeprg
-endfunction
-command! -complete=file -nargs=* CppLint call CppLint('<args>')
-
+"source /Users/kayxhding/workspace/dev-env/vim/cpp_format.vim
