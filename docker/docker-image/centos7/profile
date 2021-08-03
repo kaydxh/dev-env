@@ -8,9 +8,14 @@ if [ "${BASH-no}" != "no" ]; then
 	[ -r /etc/bashrc ] && . /etc/bashrc
 fi
 
+alias go=go-linux
 
-export GOROOT=/usr/local/go
-export PATH=$GOROOT/bin:$PATH
+export GOROOT=/Users/kayxhding/workspace/gopath/src/go
+export GOPATH=/Users/kayxhding/workspace/gopath
+export GOBIN=$GOPATH/bin
 
-export GOPATH=$HOME/workspace/gopath
+##export GOPATH=/Users/kayxhding/workspace/gopath
+##export GOBIN=/Users/kayxhding/workspace/gopath/bin
 
+export PATH=$GOROOT/bin:$GOBIN:$GOPATH/bin:$PATH
+CMAKE_ROOT=/usr/local/share/cmake-3.18
