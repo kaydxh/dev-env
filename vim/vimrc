@@ -45,6 +45,7 @@ set number
 "set path
 set path=/Users/kayxhding/Enviroment/centos_include/include
 set path+=/Users/kayxhding/Enviroment/centos_include/include/c++/4.4.4
+set path+=/Users/kayxhding/Enviroment/centos_include/include/c++/4.4.4/bits
 set path+=/Library/Developer/CommandLineTools/usr/include/c++/v1
 set path+=/Users/kayxhding/Enviroment/lib/include
 set path+=/usr/local/go/src
@@ -84,40 +85,57 @@ if !has('gui_running')
   endif
 endif
 
- "if exists('g:loaded_minpac')
+"
+"install vim-go
+"Vim 8 packages
+"git clone https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-go
+"Neovim packages
+"git clone https://github.com/fatih/vim-go.git ~/.local/share/nvim/site/pack/plugins/start/vim-go
+"Pathogen
+"git clone https://github.com/fatih/vim-go.git ~/.vim/bundle/vim-go
+"vim-plug
+"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+"Vundle
+"Plugin 'fatih/vim-go'
+
+"install minpack
+"git clone https://github.com/k-takata/minpac.git ~/.vim/pack/minpac/opt/minpac
+
+ if exists('g:loaded_minpac')
    "" Minpac is loaded.
-   "call minpac#init()
-   "call minpac#add('k-takata/minpac', {'type': 'opt'})
- "
-   "" Other plugins
-   "call minpac#add('adah1972/vim-copy-as-rtf')
-   "call minpac#add('airblade/vim-gitgutter')
-   "call minpac#add('junegunn/fzf', {'do': {-> fzf#install()}})
-   "call minpac#add('junegunn/fzf.vim')
-   "call minpac#add('majutsushi/tagbar')
-   "call minpac#add('mbbill/undotree')
-   "call minpac#add('mg979/vim-visual-multi')
-   "call minpac#add('preservim/nerdcommenter')
-   "call minpac#add('preservim/nerdtree')
-   "call minpac#add('skywind3000/asyncrun.vim')
-   "call minpac#add('tpope/vim-eunuch')
-   "call minpac#add('tpope/vim-fugitive')
-   "call minpac#add('tpope/vim-repeat')
-   "call minpac#add('tpope/vim-surround')
-   "call minpac#add('vim-airline/vim-airline')
-   "call minpac#add('vim-scripts/SyntaxAttr.vim')
-   "call minpac#add('yegappan/mru')
+   call minpac#init()
+   call minpac#add('k-takata/minpac', {'type': 'opt'})
+ 
+   " Other plugins
+   call minpac#add('adah1972/vim-copy-as-rtf')
+   call minpac#add('airblade/vim-gitgutter')
+   call minpac#add('junegunn/fzf', {'do': {-> fzf#install()}})
+   call minpac#add('junegunn/fzf.vim')
+   call minpac#add('majutsushi/tagbar')
+   call minpac#add('mbbill/undotree')
+   call minpac#add('mg979/vim-visual-multi')
+   call minpac#add('preservim/nerdcommenter')
+   call minpac#add('preservim/nerdtree')
+   call minpac#add('skywind3000/asyncrun.vim')
+   call minpac#add('tpope/vim-eunuch')
+   call minpac#add('tpope/vim-fugitive')
+   call minpac#add('tpope/vim-repeat')
+   call minpac#add('tpope/vim-surround')
+   call minpac#add('vim-airline/vim-airline')
+   call minpac#add('vim-scripts/SyntaxAttr.vim')
+   call minpac#add('yegappan/mru')
    "call minpac#add('fatih/vim-go')
-   "call minpac#add('dgryski/vim-godef')
-   "call minpac#add('rhysd/vim-clang-format')
-   "call minpac#add('mileszs/ack.vim')
-   "call minpac#add('nsf/gocode', {'rtp': 'vim/'})
-   "call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
-   "call minpac#add('uguu-org/vim-matrix-screensaver')
+   call minpac#add('dgryski/vim-godef')
+   call minpac#add('rhysd/vim-clang-format')
+   call minpac#add('mileszs/ack.vim')
+   call minpac#add('nsf/gocode', {'rtp': 'vim/'})
+   call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
+   call minpac#add('uguu-org/vim-matrix-screensaver')
+   call minpac#add('dense-analysis/ale')
  "
-   "call minpac#add('vim/killersheep')
+   call minpac#add('vim/killersheep')
  "
- "endif
+ endif
  
  
  " install tools
@@ -127,36 +145,36 @@ endif
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/Vundle.vim'
-Plugin 'adah1972/vim-copy-as-rtf'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plugin 'junegunn/fzf.vim'
-Plugin 'majutsushi/tagbar'
-Plugin 'mbbill/undotree'
-Plugin 'mg979/vim-visual-multi'
-Plugin 'preservim/nerdcommenter'
-Plugin 'preservim/nerdtree'
-Plugin 'skywind3000/asyncrun.vim'
-Plugin 'tpope/vim-eunuch'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-scripts/SyntaxAttr.vim'
-Plugin 'yegappan/mru'
-Plugin 'fatih/vim-go'
-Plugin 'dgryski/vim-godef'
-Plugin 'rhysd/vim-clang-format'
-Plugin 'mileszs/ack.vim'
-Plugin 'nsf/gocode', { 'for': ['go', 'golang'] }
-Plugin 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plugin 'uguu-org/vim-matrix-screensaver'
+"Plugin 'gmarik/Vundle.vim'
+"Plugin 'adah1972/vim-copy-as-rtf'
+"Plugin 'airblade/vim-gitgutter'
+"Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plugin 'junegunn/fzf.vim'
+"Plugin 'majutsushi/tagbar'
+"Plugin 'mbbill/undotree'
+"Plugin 'mg979/vim-visual-multi'
+"Plugin 'preservim/nerdcommenter'
+"Plugin 'preservim/nerdtree'
+"Plugin 'skywind3000/asyncrun.vim'
+"Plugin 'tpope/vim-eunuch'
+"Plugin 'tpope/vim-fugitive'
+"Plugin 'tpope/vim-repeat'
+"Plugin 'tpope/vim-surround'
+"Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-scripts/SyntaxAttr.vim'
+"Plugin 'yegappan/mru'
+"Plugin 'fatih/vim-go'
+"Plugin 'dgryski/vim-godef'
+"Plugin 'rhysd/vim-clang-format'
+"Plugin 'mileszs/ack.vim'
+"Plugin 'nsf/gocode', { 'for': ['go', 'golang'] }
+"Plugin 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+"Plugin 'uguu-org/vim-matrix-screensaver'
 
-Plugin 'vim/killersheep'
-Plugin 'itchyny/calendar.vim'
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'frazrepo/vim-rainbow'
+"Plugin 'vim/killersheep'
+"Plugin 'itchyny/calendar.vim'
+"Plugin 'tmhedberg/SimpylFold'
+"Plugin 'frazrepo/vim-rainbow'
 
 if has('eval')
   " Minpac commands
@@ -276,6 +294,7 @@ if has('autocmd')
   let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++'
 
   " 用于 YouCompleteMe 的设定
+  let g:ycm_global_ycm_extra_conf = '/Users/kayxhding/.vim/my/start/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
   let g:ycm_auto_hover = ''
   let g:ycm_complete_in_comments = 1
   let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -311,6 +330,19 @@ if has('autocmd')
   nnoremap <Leader>gh :YcmCompleter GoToDeclaration<CR>
   nnoremap <Leader>gr :YcmCompleter GoToReferences<CR>
   map <C-]> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+  " 用于 ALE 的设定
+  "call deoplete#custom#option('sources', {
+  "\ '_': ['ale', 'foobar'],
+  "\})
+  " Enable completion where available.
+  " This setting must be set before ALE is loaded.
+  "
+  " You should not turn this setting on if you wish to use ALE as a completion
+  " source for other completion plugins, like Deoplete.
+  let g:ale_completion_enabled = 1
+  "set omnifunc=ale#completion#OmniFunc
+  let g:ale_completion_autoimport = 1
 
   set foldmethod=syntax "marker syntax indent 
   set foldlevelstart=99
