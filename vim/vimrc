@@ -26,6 +26,8 @@ if has('gui_running')
   let do_no_lazyload_menus = 1
 endif
 
+" automatically refresh vim on buffer/window focus
+au FocusGained * :redraw!
 set enc=utf-8
 source $VIMRUNTIME/vimrc_example.vim
 
@@ -132,6 +134,8 @@ endif
    call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
    call minpac#add('uguu-org/vim-matrix-screensaver')
    call minpac#add('dense-analysis/ale')
+   call minpac#add('NLKNguyen/pipe.vim')
+   call minpac#add('NLKNguyen/pipe-mysql.vim')
  "
    call minpac#add('vim/killersheep')
  "
@@ -350,7 +354,14 @@ if has('autocmd')
 
  " filetype plugin on
  " filetype indent on
+ " mysql https://github.com/NLKNguyen/pipe-mysql.vim
+"  nnoremap <Leader>sr g:PipeMySQL_SetRemote()
+"  nnoremap <Leader>sa g:PipeMySQL_SetAccess()
+"  nnoremap <Leader>sd g:PipeMySQL_SetDatabase()
+"  nnoremap <Leader>se g:PipeMySQL_SetEmpty()
+"  nnoremap <Leader>sp g:PipeMySQL_SelectPreset()
 
+"  nnoremap <Leader>rf g:PipeMySQL_RunFilef()
   au FileType c,cpp,objc  setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=4 cinoptions=:0,g0,(0,w1
   au FileType json        setlocal expandtab shiftwidth=2 softtabstop=2
   au FileType vim         setlocal expandtab shiftwidth=2 softtabstop=2
