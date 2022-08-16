@@ -330,10 +330,12 @@ if has('autocmd')
                         \}
   nnoremap <Leader>fi :YcmCompleter FixIt<CR>
   nnoremap <Leader>gt :YcmCompleter GoTo<CR>
- " nnoremap <Leader>gd :YcmCompleter GoToDefinition<CR>
+  " nnoremap <Leader>gd :YcmCompleter GoToDefinition<CR>
   nnoremap <Leader>gh :YcmCompleter GoToDeclaration<CR>
   nnoremap <Leader>gr :YcmCompleter GoToReferences<CR>
-  map <C-]> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+  " https://github.com/ycm-core/YouCompleteMe/issues/3157
+  map <C-]> : rightbelow vertical YcmCompleter GoToDefinitionElseDeclaration<CR>
 
   " 用于 ALE 的设定
   "call deoplete#custom#option('sources', {
