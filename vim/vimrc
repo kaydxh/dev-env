@@ -103,6 +103,11 @@ endif
 "install minpack
 "git clone https://github.com/k-takata/minpac.git ~/.vim/pack/minpac/opt/minpac
 
+"instal gopls
+"go install golang.org/x/tools/gopls@latest
+"install golines
+"go install github.com/segmentio/golines@latest
+
  if exists('g:loaded_minpac')
    "" Minpac is loaded.
    call minpac#init()
@@ -126,7 +131,7 @@ endif
    call minpac#add('vim-airline/vim-airline')
    call minpac#add('vim-scripts/SyntaxAttr.vim')
    call minpac#add('yegappan/mru')
-   "call minpac#add('fatih/vim-go')
+   call minpac#add('fatih/vim-go')
    call minpac#add('dgryski/vim-godef')
    call minpac#add('rhysd/vim-clang-format')
    call minpac#add('mileszs/ack.vim')
@@ -143,7 +148,7 @@ endif
  
  
  " install tools
- " go get -u github.com/segmentio/golines
+ " go install github.com/segmentio/golines@latest
  " brew install ack
  " brew install clang-format
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -288,6 +293,10 @@ if has('autocmd')
   "rainbow
   let g:rainbow_active = 1
 
+  " gopls
+  let g:go_def_mode='gopls'
+  let g:go_info_mode='gopls'
+
   " golines
   let g:go_fmt_command = "golines"
   let g:go_fmt_options = {
@@ -389,4 +398,12 @@ func SetTitle()
     endif
 endfunc
 
+" Reloading source on CTRL-P. Requires fd command.
+function! Foo(dir)
+  let tf = tempname()
+  call writefile(['.'], tf)
+
+  call fzf#vim#files(a:dir, {'source': 'fd', 'options': ['--bind', printf('ctrl-p:reload:base="$(cat %s)"/..; echo "$base" > %s; fd . "$base"', shellescape(tf), shellescape(tf))]})
+endfunction
+command! -nargs=* Foo call Foo(<q-args>)
 "source ${HOME}/workspace/dev-env/vim/cpp_format.vim
