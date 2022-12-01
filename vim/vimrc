@@ -62,9 +62,9 @@ endif
 
 if has('mouse')
   if has('gui_running') || (&term =~ 'xterm' && !has('mac'))
-    "set mouse=a
+    set mouse-=a
   else
-    "set mouse=nvi
+    set mouse=nvi
   endif
 endif
 
@@ -114,7 +114,7 @@ endif
    call minpac#add('k-takata/minpac', {'type': 'opt'})
  
    " Other plugins
-   call minpac#add('adah1972/vim-copy-as-rtf')
+   call minpac#add('Valloric/YouCompleteMe')
    call minpac#add('airblade/vim-gitgutter')
    call minpac#add('junegunn/fzf', {'do': {-> fzf#install()}})
    call minpac#add('junegunn/fzf.vim')
@@ -128,7 +128,7 @@ endif
    call minpac#add('tpope/vim-fugitive')
    call minpac#add('tpope/vim-repeat')
    call minpac#add('tpope/vim-surround')
-   call minpac#add('vim-airline/vim-airline')
+   " call minpac#add('vim-airline/vim-airline')
    call minpac#add('vim-scripts/SyntaxAttr.vim')
    call minpac#add('yegappan/mru')
    call minpac#add('fatih/vim-go')
@@ -139,8 +139,6 @@ endif
    call minpac#add('iamcco/markdown-preview.nvim', {'do': 'packloadall! | call mkdp#util#install()'})
    call minpac#add('uguu-org/vim-matrix-screensaver')
    call minpac#add('dense-analysis/ale')
-   call minpac#add('NLKNguyen/pipe.vim')
-   call minpac#add('NLKNguyen/pipe-mysql.vim')
  "
    call minpac#add('vim/killersheep')
  "
@@ -151,8 +149,7 @@ endif
  " go install github.com/segmentio/golines@latest
  " brew install ack
  " brew install clang-format
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+
 
 "Plugin 'gmarik/Vundle.vim'
 "Plugin 'adah1972/vim-copy-as-rtf'
@@ -298,6 +295,7 @@ if has('autocmd')
   let g:go_info_mode='gopls'
 
   " golines
+  " install go get -u github.com/segmentio/golines
   let g:go_fmt_command = "golines"
   let g:go_fmt_options = {
       \ 'golines': '-m 120',
@@ -307,7 +305,9 @@ if has('autocmd')
   let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libc++'
 
   " 用于 YouCompleteMe 的设定
-  let g:ycm_global_ycm_extra_conf = '${HOME}/.vim/my/start/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
+  " 如无法跳转，参考https://github.com/clangd/clangd/issues/1399
+  "let g:ycm_clangd_args=['-background-index']
+  let g:ycm_global_ycm_extra_conf = '~/.vim/pack/minpac/start/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
   let g:ycm_auto_hover = ''
   let g:ycm_complete_in_comments = 1
   let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -326,7 +326,7 @@ if has('autocmd')
   let g:ycm_min_num_of_chars_for_completion=1
   let g:ycm_key_invoke_completion = '<C-Z>'
   let g:ycm_use_clangd = 1
-"  let g:ycm_clangd_binary_path = "${HOME}/.vim/bundle/YouCompleteMe/third_party/ycmd/third_party/clangd/output/bin"
+  let g:ycm_clangd_binary_path = "~/.vim/pack/minpac/start/YouCompleteMe/third_party/ycmd/third_party/clangd/output/bin/clangd"
 
   let g:ycm_autoclose_preview_window_after_insertion = 1
   let g:ycm_warning_symbol                      = '>*'
@@ -365,14 +365,7 @@ if has('autocmd')
 
  " filetype plugin on
  " filetype indent on
- " mysql https://github.com/NLKNguyen/pipe-mysql.vim
-"  nnoremap <Leader>sr g:PipeMySQL_SetRemote()
-"  nnoremap <Leader>sa g:PipeMySQL_SetAccess()
-"  nnoremap <Leader>sd g:PipeMySQL_SetDatabase()
-"  nnoremap <Leader>se g:PipeMySQL_SetEmpty()
-"  nnoremap <Leader>sp g:PipeMySQL_SelectPreset()
 
-"  nnoremap <Leader>rf g:PipeMySQL_RunFilef()
   au FileType c,cpp,objc  setlocal expandtab shiftwidth=4 softtabstop=4 tabstop=4 cinoptions=:0,g0,(0,w1
   au FileType json        setlocal expandtab shiftwidth=2 softtabstop=2
   au FileType vim         setlocal expandtab shiftwidth=2 softtabstop=2
