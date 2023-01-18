@@ -307,6 +307,8 @@ if has('autocmd')
   " 用于 YouCompleteMe 的设定
   " 如无法跳转，参考https://github.com/clangd/clangd/issues/1399
   "let g:ycm_clangd_args=['-background-index']
+  " https://github.com/ycm-core/YouCompleteMe#:~:text=let%20g%3Aycm_disable_for_files_larger_than_kb%20%3D%201000
+  let g:ycm_disable_for_files_larger_than_kb=1000000
   let g:ycm_global_ycm_extra_conf = '~/.vim/pack/minpac/start/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
   let g:ycm_auto_hover = ''
   let g:ycm_complete_in_comments = 1
