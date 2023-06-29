@@ -94,7 +94,7 @@ source /opt/rh/devtoolset-7/enable
 source ~/.bashrc
 
 if [[ ! -d /datacfs/youtu_deps ]]; then
-   sudo mount -t nfs -o vers=3,nolock,proto=tcp,noresvport 9.135.251.12:/omv62z0u /datacfs
+   sudo mount -t nfs -o vers=3,nolock,proto=tcp,noresvport 127.0.0.xx:/omv62z0u /datacfs
 fi
 
 export PATH=$PATH:/usr/local/bin:/usr/libexec/git-core:/opt/CollabNet_Subversion/bin
