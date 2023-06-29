@@ -1,0 +1,102 @@
+# /etc/profile
+
+# System wide environment and startup programs, for login setup
+# Functions and aliases go in /etc/bashrc
+
+# It's NOT a good idea to change this file unless you know what you
+# are doing. It's much better to create a custom.sh shell script in
+# /etc/profile.d/ to make custom changes to your environment, as this
+# will prevent the need for merging in future updates.
+
+pathmunge () {
+    case ":${PATH}:" in
+        *:"$1":*)
+            ;;
+        *)
+            if [ "$2" = "after" ] ; then
+                PATH=$PATH:$1
+            else
+                PATH=$1:$PATH
+            fi
+    esac
+}
+
+
+if [ -x /usr/bin/id ]; then
+    if [ -z "$EUID" ]; then
+        # ksh workaround
+        EUID=`id -u`
+        UID=`id -ru`
+    fi
+    USER="`id -un`"
+    LOGNAME=$USER
+    MAIL="/var/spool/mail/$USER"
+fi
+
+# Path manipulation
+if [ "$EUID" = "0" ]; then
+    pathmunge /usr/sbin
+    pathmunge /usr/local/sbin
+else
+    pathmunge /usr/local/sbin after
+    pathmunge /usr/sbin after
+fi
+
+HOSTNAME=`/usr/bin/hostname 2>/dev/null`
+# Reset HISTSIZE to 3000, show timestamp (tlinux team <g_APD_SRDC_OS@tencent.com>) 
+HISTSIZE=3000
+HISTTIMEFORMAT='%F %T '
+if [ "$HISTCONTROL" = "ignorespace" ] ; then
+    export HISTCONTROL=ignoreboth
+else
+    export HISTCONTROL=ignoredups
+fi
+
+export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL
+
+# By default, we want umask to get set. This sets it for login shell
+# Current threshold for system reserved uid/gids is 200
+# You could check uidgid reservation validity in
+# /usr/share/doc/setup-*/uidgid file
+if [ $UID -gt 199 ] && [ "`id -gn`" = "`id -un`" ]; then
+    umask 002
+else
+    umask 022
+fi
+
+for i in /etc/profile.d/*.sh ; do
+    if [ -r "$i" ]; then
+        if [ "${-#*i}" != "$-" ]; then 
+            . "$i"
+        else
+            . "$i" >/dev/null
+        fi
+    fi
+done
+
+unset i
+unset -f pathmunge
+
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/lib
+export PATH=/usr/local/cuda/bin:$PATH
+export PATH=$PATH:/bin:/usr/bin:/usr/local/bin
+
+export GOROOT=/usr/local/go
+export GOPATH=/datacfs/gopath
+export GOBIN=$GOPATH/bin
+export PATH=$GOROOT/bin:$GOBIN:$HOME/bin:$PATH
+
+
+export PYTHONIOENCODING=utf-8
+
+export PATH=/bin:/usr/libexec/git-core:/opt/CollabNet_Subversion/bin:/etc/kubeasz/bin/:/usr/local/go/bin:/datacfs/gopath/bin:/root/bin:/usr/local/cuda/bin:/opt/rh/llvm-toolset-7.0/root/usr/bin:/opt/rh/llvm-toolset-7.0/root/usr/sbin:/opt/rh/devtoolset-7/root/usr/bin:/usr/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/usr/local/bin:/usr/libexec/git-core:/opt/CollabNet_Subversion/bin:/usr/local/cuda/bin:/root/.ft:/root/.fzf/bin:/root/.local/bin:/usr/local/bin/:/root/bin:$PATH
+source /opt/rh/devtoolset-7/enable
+source ~/.bashrc
+
+if [[ ! -d /datacfs/youtu_deps ]]; then
+   sudo mount -t nfs -o vers=3,nolock,proto=tcp,noresvport 9.135.251.12:/omv62z0u /datacfs
+fi
+
+export PATH=$PATH:/usr/local/bin:/usr/libexec/git-core:/opt/CollabNet_Subversion/bin
+export PYTHONPATH=/usr/local/lib64/python3.8/site-packages/:/usr/local/lib/python3.8/site-packages/:/usr/local/lib64/python3.6/site-packages/:/usr/local/lib/python3.6/site-packages/:$PYTHONPATH
+
