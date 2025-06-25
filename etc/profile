@@ -85,6 +85,7 @@ export GOROOT=/usr/local/go
 export GOPATH=/datacfs/gopath
 export GOBIN=$GOPATH/bin
 export PATH=$GOROOT/bin:$GOBIN:$HOME/bin:$PATH
+export GOMODCACHE=$HOME/workspace/pkg/go
 
 
 export PYTHONIOENCODING=utf-8
