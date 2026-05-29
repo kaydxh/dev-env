@@ -3,11 +3,6 @@
 # System wide environment and startup programs, for login setup
 # Functions and aliases go in /etc/bashrc
 
-# It's NOT a good idea to change this file unless you know what you
-# are doing. It's much better to create a custom.sh shell script in
-# /etc/profile.d/ to make custom changes to your environment, as this
-# will prevent the need for merging in future updates.
-
 pathmunge () {
     case ":${PATH}:" in
         *:"$1":*)
@@ -20,7 +15,6 @@ pathmunge () {
             fi
     esac
 }
-
 
 if [ -x /usr/bin/id ]; then
     if [ -z "$EUID" ]; then
@@ -43,7 +37,6 @@ else
 fi
 
 HOSTNAME=`/usr/bin/hostname 2>/dev/null`
-# Reset HISTSIZE to 3000, show timestamp (tlinux team <g_APD_SRDC_OS@tencent.com>) 
 HISTSIZE=3000
 HISTTIMEFORMAT='%F %T '
 if [ "$HISTCONTROL" = "ignorespace" ] ; then
@@ -54,39 +47,33 @@ fi
 
 export PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL
 
-# By default, we want umask to get set. This sets it for login shell
-# Current threshold for system reserved uid/gids is 200
-# You could check uidgid reservation validity in
-# /usr/share/doc/setup-*/uidgid file
+# umask
 if [ $UID -gt 199 ] && [ "`id -gn`" = "`id -un`" ]; then
     umask 002
 else
     umask 022
 fi
 
+# 加载 /etc/profile.d/ 下的脚本
 for i in /etc/profile.d/*.sh ; do
     if [ -r "$i" ]; then
-        if [ "${-#*i}" != "$-" ]; then 
+        if [ "${-#*i}" != "$-" ]; then
             . "$i"
         else
             . "$i" >/dev/null
         fi
     fi
 done
-
 unset i
 
-export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/lib
-export PATH=/usr/local/cuda/bin:$PATH
-export PATH=$PATH:/bin:/usr/bin:/usr/local/bin
-
+# Go 环境
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/workspace/gopath
 export GOBIN=$GOPATH/bin
 export PATH=$GOROOT/bin:$GOBIN:$HOME/bin:$PATH
 export GOMODCACHE=$HOME/workspace/pkg/go
 
-# 语言和编码设置
+# 语言和编码
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 export PYTHONIOENCODING=utf-8
@@ -95,21 +82,9 @@ export PYTHONIOENCODING=utf-8
 export EDITOR='vim'
 export VISUAL='vim'
 
-# 额外工具路径（使用 pathmunge 避免重复）
-pathmunge /usr/libexec/git-core after
-pathmunge /opt/CollabNet_Subversion/bin after
-pathmunge /etc/kubeasz/bin after
-pathmunge /opt/rh/llvm-toolset-7.0/root/usr/bin after
-pathmunge /opt/rh/devtoolset-7/root/usr/bin after
-pathmunge /usr/condabin after
-pathmunge $HOME/.ft after
+# 常用工具路径
 pathmunge $HOME/.fzf/bin after
 pathmunge $HOME/.local/bin after
-
-source /opt/rh/devtoolset-7/enable
-source ~/.bashrc
-
-export PYTHONPATH=/usr/local/lib64/python3.8/site-packages/:/usr/local/lib/python3.8/site-packages/:/usr/local/lib64/python3.6/site-packages/:/usr/local/lib/python3.6/site-packages/:$PYTHONPATH
 
 # NVM（Node.js 版本管理器）
 export NVM_DIR="$HOME/.nvm"
@@ -117,4 +92,3 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
 
 unset -f pathmunge
-
