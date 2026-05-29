@@ -84,7 +84,8 @@ if [ "$SKIP_BREW" = false ]; then
     clang-format       # C/C++ 代码格式化
     cmake              # 编译 YCM 需要
     python3            # Python3 支持
-    node               # Node.js（markdown-preview 需要）
+    node               # Node.js（markdown-preview 需要，YCM 前端补全也需要）
+    shellcheck         # Shell 脚本静态分析
   )
 
   for pkg in "${BREW_PACKAGES[@]}"; do
@@ -174,9 +175,9 @@ if [ "$SKIP_YCM" = false ]; then
     git clone --recurse-submodules https://github.com/ycm-core/YouCompleteMe.git "$YCM_DIR"
   fi
 
-  info "编译 YouCompleteMe（支持 C/C++、Go、Python）..."
+  info "编译 YouCompleteMe（支持 C/C++、Go、TypeScript/JavaScript）..."
   cd "$YCM_DIR"
-  python3 install.py --clangd-completer --go-completer
+  python3 install.py --clangd-completer --go-completer --ts-completer
   cd -
   success "YouCompleteMe 安装完成"
 else
