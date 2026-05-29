@@ -453,5 +453,4 @@ function! Foo(dir)
 endfunction
 
 command! -nargs=* Foo call Foo(<q-args>)
-"source /Users/kayxhding/workspace/dev-env/vim/cpp_format.vim
 
