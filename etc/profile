@@ -75,29 +75,46 @@ for i in /etc/profile.d/*.sh ; do
 done
 
 unset i
-unset -f pathmunge
 
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/lib
 export PATH=/usr/local/cuda/bin:$PATH
 export PATH=$PATH:/bin:/usr/bin:/usr/local/bin
 
 export GOROOT=/usr/local/go
-export GOPATH=/datacfs/gopath
+export GOPATH=$HOME/workspace/gopath
 export GOBIN=$GOPATH/bin
 export PATH=$GOROOT/bin:$GOBIN:$HOME/bin:$PATH
 export GOMODCACHE=$HOME/workspace/pkg/go
 
-
+# 语言和编码设置
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 export PYTHONIOENCODING=utf-8
 
-export PATH=/bin:/usr/libexec/git-core:/opt/CollabNet_Subversion/bin:/etc/kubeasz/bin/:/usr/local/go/bin:/datacfs/gopath/bin:/root/bin:/usr/local/cuda/bin:/opt/rh/llvm-toolset-7.0/root/usr/bin:/opt/rh/llvm-toolset-7.0/root/usr/sbin:/opt/rh/devtoolset-7/root/usr/bin:/usr/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/usr/local/bin:/usr/libexec/git-core:/opt/CollabNet_Subversion/bin:/usr/local/cuda/bin:/root/.ft:/root/.fzf/bin:/root/.local/bin:/usr/local/bin/:/root/bin:$PATH
+# 默认编辑器
+export EDITOR='vim'
+export VISUAL='vim'
+
+# 额外工具路径（使用 pathmunge 避免重复）
+pathmunge /usr/libexec/git-core after
+pathmunge /opt/CollabNet_Subversion/bin after
+pathmunge /etc/kubeasz/bin after
+pathmunge /opt/rh/llvm-toolset-7.0/root/usr/bin after
+pathmunge /opt/rh/devtoolset-7/root/usr/bin after
+pathmunge /usr/condabin after
+pathmunge $HOME/.ft after
+pathmunge $HOME/.fzf/bin after
+pathmunge $HOME/.local/bin after
+
 source /opt/rh/devtoolset-7/enable
 source ~/.bashrc
 
-if [[ ! -d /datacfs/youtu_deps ]]; then
-   sudo mount -t nfs -o vers=3,nolock,proto=tcp,noresvport 127.0.0.xx:/omv62z0u /datacfs
-fi
-
-export PATH=$PATH:/usr/local/bin:/usr/libexec/git-core:/opt/CollabNet_Subversion/bin
 export PYTHONPATH=/usr/local/lib64/python3.8/site-packages/:/usr/local/lib/python3.8/site-packages/:/usr/local/lib64/python3.6/site-packages/:/usr/local/lib/python3.6/site-packages/:$PYTHONPATH
+
+# NVM（Node.js 版本管理器）
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+
+unset -f pathmunge
 
