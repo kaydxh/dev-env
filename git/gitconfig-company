@@ -1,0 +1,7 @@
+# 公司内部 Git 平台专用配置
+# 通过 includeIf 条件加载，仅对特定工作目录下的仓库生效
+# 使用方法：复制到 ~/.gitconfig-company，修改 name 和 email 为你的企业信息
+
+[user]
+    name = <your-company-username>
+    email = <your-company-username>@company.com

@@ -1,0 +1,27 @@
+[safe]
+	directory = /opt/homebrew
+
+[core]
+	quotepath = false
+	hooksPath = ~/.git-hooks
+
+[i18n "commit"]
+	encoding = utf-8
+
+[i18n]
+	logoutputencoding = utf-8
+
+[user]
+	email = 523520531@qq.com
+	name = <your-name>
+
+# 针对工作目录使用不同的 git 配置（如公司邮箱）
+# 示例：对特定目录下的仓库使用不同的用户配置
+[includeIf "gitdir:~/workspace/company-git/"]
+    path = ~/.gitconfig-company
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
