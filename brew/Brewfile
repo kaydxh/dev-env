@@ -1,0 +1,52 @@
+# Homebrew 软件清单
+# 使用 brew bundle 恢复：brew bundle --file=Brewfile
+# 生成方式：brew bundle dump --file=Brewfile
+
+# ===== CLI 工具 =====
+brew "ack"                  # 代码搜索
+brew "asitop"               # Apple Silicon 性能监控
+brew "clang-format"         # C/C++ 代码格式化
+brew "cmake"                # 构建工具
+brew "coreutils"            # GNU 核心工具
+brew "curl"                 # HTTP 客户端
+brew "docker"               # 容器引擎
+brew "docker-compose"       # 容器编排
+brew "ffmpeg"               # 音视频处理
+brew "findutils"            # GNU 查找工具
+brew "fswatch"              # 文件变更监控
+brew "git"                  # 版本控制
+brew "git-lfs"              # Git 大文件存储
+brew "gnu-sed"              # GNU sed
+brew "graphviz"             # 图形可视化
+brew "grpcurl"              # gRPC 调试工具
+brew "node"                 # Node.js
+brew "protobuf"             # Protocol Buffers
+brew "pyenv"                # Python 版本管理
+brew "rename"               # 批量重命名
+brew "telnet"               # 网络调试
+brew "universal-ctags"      # 代码标签生成
+brew "vim"                  # 编辑器
+brew "wget"                 # 下载工具
+
+# ===== 编程语言相关 =====
+brew "python@3.13"          # Python 3.13
+brew "openjdk@17"           # Java 17
+
+# ===== 移动开发 =====
+brew "cocoapods"            # iOS 依赖管理
+
+# ===== 容器 =====
+brew "colima"               # macOS 容器运行时
+
+# ===== 云服务 =====
+brew "azure-cli"            # Azure CLI
+
+# ===== 音频 =====
+brew "portaudio"            # 音频 I/O 库
+
+# ===== GUI 应用（Cask）=====
+cask "anaconda"             # Python 数据科学环境
+cask "android-platform-tools"  # Android 调试工具
+cask "chromedriver"         # Chrome 自动化驱动
+cask "flutter"              # Flutter SDK
+cask "rar"                  # 解压工具
